@@ -5,8 +5,7 @@ import com.example.demo.domain.dto.CompanyDTO;
 import com.example.demo.domain.dto.HrDTO;
 import com.example.demo.domain.param.CompanySearchParam;
 import com.example.demo.domain.param.HrSearchParam;
-import com.example.demo.orm.mapper.CompanyMapper;
-import com.example.demo.orm.service.impl.HrServiceImpl;
+
 import com.example.demo.service.RemoteCompanyService;
 import com.example.demo.service.RemoteHrService;
 import org.junit.jupiter.api.Test;

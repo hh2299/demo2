@@ -9,10 +9,7 @@ import com.example.demo.service.RemoteCompanyService;
 import com.example.demo.service.RemoteHrService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +27,28 @@ public class HrController {
     @PostMapping("/list")
     public BaseModel<List<HrDTO>> getHrList(@RequestBody HrSearchParam param) {
         List<HrDTO> data = hrService.getHrList(param);
+        return BaseModel.buildSuccess(data);
+    }
+
+
+    @ApiOperation("保存Hr")
+    @PostMapping("/save")
+    public BaseModel<Long> saveHr(@RequestBody HrDTO company) {
+        Long id = hrService.save(company);
+        return BaseModel.buildSuccess(id);
+    }
+
+    @ApiOperation("删除Hr")
+    @GetMapping("delete")
+    public BaseModel<HrDTO> delete(@RequestParam Long id) {
+        Boolean data = hrService.delete(id);
+        return data ? BaseModel.buildSuccess() : BaseModel.buildError();
+    }
+
+    @ApiOperation("根据Hr的id获取指定Hr信息")
+    @GetMapping("getById")
+    public BaseModel<HrDTO> getById(@RequestParam Long id) {
+        HrDTO data = hrService.getHrById(id);
         return BaseModel.buildSuccess(data);
     }
 

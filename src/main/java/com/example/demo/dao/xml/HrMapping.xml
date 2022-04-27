@@ -5,9 +5,9 @@
     <select id="getHrList" resultType="com.example.demo.domain.dto.HrDTO">
         select
             h.*,
-            c.name
+            c.name company
         from hr h
-        left join commpany c on h.commpany_id = c.id
+        left join company c on h.company_id = c.id
         where h.deleted = 0
         <if test="param.name!=null">
             and h.name like concat('%',#{param.name},'%')
@@ -21,5 +21,11 @@
         <if test="param.company!=null">
             and c.name like concat('%',#{param.company},'%')
         </if>
+        <if test="id!=null">
+            and h.id = #{id}
+        </if>
+
+        order by h.update_time desc
+
     </select>
 </mapper>

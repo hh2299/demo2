@@ -9,7 +9,11 @@ import com.example.demo.common.util.StringUtil;
 import com.example.demo.domain.dto.CompanyDTO;
 import com.example.demo.domain.param.CompanySearchParam;
 import com.example.demo.orm.entity.Company;
+import com.example.demo.orm.entity.Hr;
+import com.example.demo.orm.entity.Recruit;
 import com.example.demo.orm.mapper.CompanyMapper;
+import com.example.demo.orm.mapper.HrMapper;
+import com.example.demo.orm.mapper.RecruitMapper;
 import com.example.demo.service.RemoteCompanyService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,6 +29,10 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
 
     @Resource
     CompanyMapper companyMapper;
+    @Resource
+    HrMapper hrMapper;
+    @Resource
+    RecruitMapper recruitMapper;
 
     @Override
     @EnablePage
@@ -39,6 +47,7 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         if (StringUtil.isNotNull(param.getName())) {
             wrapper.like(Company::getName, param.getName());
         }
+        wrapper.orderByDesc(Company::getUpdateTime);
         List<Company> companyList = companyMapper.selectList(wrapper);
         companyDTOList = ConverterUtils.convertList(companyList, CompanyDTO.class);
         return companyDTOList;
@@ -68,6 +77,8 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         }
         //TODO
 //        删除其下的相关表内容
+        super.deleteRelationList(hrMapper, Hr::getCompanyId, id);
+
 
         int count = companyMapper.deleteById(id);
         return count == 1;

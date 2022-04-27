@@ -12,11 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @MapperScan({"com.example.demo.orm.mapper","com.example.demo.dao"})
 @SpringBootApplication(scanBasePackages = {"com.example.demo"})
 public class Demo2Application {
-
 	public static void main(String[] args) {
 		SpringApplication.run(Demo2Application.class, args);
 	}
-
-
-
 }

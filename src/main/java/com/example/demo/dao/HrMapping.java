@@ -8,10 +8,12 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+
+@Mapper
 public interface HrMapping{
 
 
-    List<HrDTO> getHrList(@Param("param") HrSearchParam param);
+    List<HrDTO> getHrList(@Param("param") HrSearchParam param,@Param("id") Long id);
 
 
 }
