@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author jobob
- * @since 2022-04-26
+ * @since 2022-04-27
  */
 public interface PositionMapper extends BaseMapper<Position> {
 

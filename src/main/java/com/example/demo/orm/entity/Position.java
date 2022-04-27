@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-26
+ * @since 2022-04-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -25,7 +25,7 @@ public class Position extends BaseEntity {
 
     private Long companyId;
 
-    private String position;
+    private String name;
 
 
 }
