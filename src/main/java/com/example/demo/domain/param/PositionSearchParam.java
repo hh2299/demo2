@@ -7,4 +7,7 @@ import lombok.Data;
 public class PositionSearchParam extends BaseSearchParam {
 
     private Long companyId;
+
+    private String name;
+
 }

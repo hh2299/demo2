@@ -1,6 +1,7 @@
 package com.example.demo.service.Impl;
 
 import com.example.demo.common.exception.MyException;
+import com.example.demo.common.mp.page.annotation.EnablePage;
 import com.example.demo.common.service.BaseService;
 import com.example.demo.common.util.ConverterUtils;
 import com.example.demo.domain.dto.HrDTO;
@@ -26,6 +27,7 @@ public class RemoteHrServiceImpl extends BaseService implements RemoteHrService 
     HrMapping hrMapping;
 
     @Override
+    @EnablePage
     public List<HrDTO> getHrList(HrSearchParam param) {
         if (param == null) {
             throw new MyException("没有查询参数");

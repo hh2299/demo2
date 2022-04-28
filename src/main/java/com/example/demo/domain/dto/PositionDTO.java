@@ -10,5 +10,5 @@ public class PositionDTO extends BaseDTO {
 
     private Long companyId;
 
-    private String position;
+    private String name;
 }

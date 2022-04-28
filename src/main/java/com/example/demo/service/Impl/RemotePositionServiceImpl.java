@@ -1,6 +1,8 @@
 package com.example.demo.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.demo.common.exception.MyException;
+import com.example.demo.common.mp.page.annotation.EnablePage;
 import com.example.demo.common.service.BaseService;
 import com.example.demo.common.util.ConverterUtils;
 import com.example.demo.domain.dto.PositionDTO;
@@ -20,13 +22,30 @@ public class RemotePositionServiceImpl extends BaseService implements RemotePosi
     PositionMapper positionMapper;
 
     @Override
+    @EnablePage
     public List<PositionDTO> getPositionList(PositionSearchParam param) {
         LambdaQueryWrapper<Position> wrapper = new LambdaQueryWrapper<>();
-        //TODO 暂时只有根据公司id筛选
         if (param.getCompanyId() != null) {
             wrapper.eq(Position::getCompanyId, param.getCompanyId());
         }
         List<Position> positions = positionMapper.selectList(wrapper);
         return ConverterUtils.convertList(positions, PositionDTO.class);
+    }
+
+    @Override
+    public Long save(PositionDTO positionDTO) {
+        if (positionDTO == null || positionDTO.getCompanyId() == null) {
+            throw new MyException("请完善职位信息");
+        }
+        Position position = ConverterUtils.convert(positionDTO, Position.class);
+        Long id = position.getId();
+        if (id == null) {
+            positionMapper.insert(position);
+            id = position.getId();
+        } else {
+            positionMapper.updateById(position);
+        }
+
+        return id;
     }
 }

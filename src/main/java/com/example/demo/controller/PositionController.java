@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.common.vo.BaseModel;
 import com.example.demo.domain.dto.HrDTO;
 import com.example.demo.domain.dto.PositionDTO;
+import com.example.demo.domain.dto.RecruitDTO;
 import com.example.demo.domain.param.HrSearchParam;
 import com.example.demo.domain.param.PositionSearchParam;
 import com.example.demo.orm.entity.Position;
@@ -30,5 +31,12 @@ public class PositionController {
     public BaseModel<List<PositionDTO>> getPositionList(@RequestBody PositionSearchParam param) {
         List<PositionDTO> data = positionService.getPositionList(param);
         return BaseModel.buildSuccess(data);
+    }
+
+    @ApiOperation("保存职位")
+    @PostMapping("/save")
+    public BaseModel<Long> savePosition(@RequestBody PositionDTO position) {
+        Long id = positionService.save(position);
+        return BaseModel.buildSuccess(id);
     }
 }

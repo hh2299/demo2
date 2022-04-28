@@ -12,4 +12,11 @@ public interface RemotePositionService {
      * @return
      */
     List<PositionDTO> getPositionList(PositionSearchParam param);
+
+    /***
+     * 保存职位
+     * @param positionDTO
+     * @return
+     */
+    Long save(PositionDTO positionDTO);
 }

@@ -34,14 +34,14 @@ public class RecruitController {
         return BaseModel.buildSuccess(id);
     }
 
-    @ApiOperation("删除Job")
+    @ApiOperation("删除招聘")
     @GetMapping("delete")
     public BaseModel<RecruitDTO> delete(@RequestParam Long id) {
         Boolean data = recruitService.delete(id);
         return data ? BaseModel.buildSuccess() : BaseModel.buildError();
     }
 
-    @ApiOperation("根据Job的id获取指定Job信息")
+    @ApiOperation("根据招聘的id获取指定招聘信息")
     @GetMapping("getById")
     public BaseModel<RecruitDTO> getById(@RequestParam Long id) {
         RecruitDTO data = recruitService.getRecruitById(id);

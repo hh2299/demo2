@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ApplicantMapping">
+
+    <select id="getList" resultType="com.example.demo.domain.dto.ApplicantDTO">
+        select
+            a.*
+        from applicant a
+        where a.deleted = 0
+        <if test="param.name!=null and param.name!=''">
+            and a.name like concat('%',#{param.name},'%')
+        </if>
+        <if test="param.sex!=null and param.sex!=''">
+            and a.sex = #{param.sex}
+        </if>
+        <if test="param.nation!=null and param.nation!=''">
+            and a.nation = #{param.nation}
+        </if>
+
+        <if test="param.origin!=null and param.origin!=''">
+            and a.origin like concat('%',#{param.origin},'%')
+        </if>
+
+        <if test="param.education!=null and param.education!=''">
+            and a.education like concat('%',#{param.education},'%')
+        </if>
+        <if test="param.graduateSchool!=null and param.graduateSchool!=''">
+            and a.graduate_school like concat('%',#{param.graduateSchool},'%')
+        </if>
+
+        <if test="param.isMagorIllness!=null">
+            and a.is_magor_illness = #{param.isMagorIllness}
+        </if>
+
+        <if test="param.intentionPositionId!=null">
+            and a.intention_position_id = #{param.intentionPositionId}
+        </if>
+
+        <if test="param.intentionPosition!=null and param.intentionPosition!=''">
+            and a.intention_position like concat('%',#{param.intentionPosition},'%')
+        </if>
+
+        <if test="param.isHired!=null">
+            and a.is_hired = #{param.isHired}
+        </if>
+
+        order by a.update_time desc
+
+    </select>
+</mapper>

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -31,8 +32,8 @@ class Demo2ApplicationTests {
 
 	@Test
 	void test1() {
-		List<CompanyDTO> companyDTOS = companyService.getCompanyList(new CompanySearchParam());
-		System.out.println(companyDTOS);
+		Date date = new Date();
+		System.out.println(date);
 
 	}
 

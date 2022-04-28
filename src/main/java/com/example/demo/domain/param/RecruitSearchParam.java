@@ -8,7 +8,7 @@ import lombok.Data;
 public class RecruitSearchParam extends BaseSearchParam {
 
     @ApiModelProperty("职位名称")
-    private String name;
+    private String positionName;
 
     private Long companyId;
 

@@ -6,14 +6,13 @@ import com.example.demo.common.mp.page.annotation.EnablePage;
 import com.example.demo.common.service.BaseService;
 import com.example.demo.common.util.ConverterUtils;
 import com.example.demo.common.util.StringUtil;
+import com.example.demo.domain.dto.ApplicantDTO;
 import com.example.demo.domain.dto.CompanyDTO;
 import com.example.demo.domain.param.CompanySearchParam;
-import com.example.demo.orm.entity.Company;
-import com.example.demo.orm.entity.Hr;
-import com.example.demo.orm.entity.Recruit;
-import com.example.demo.orm.mapper.CompanyMapper;
-import com.example.demo.orm.mapper.HrMapper;
-import com.example.demo.orm.mapper.RecruitMapper;
+import com.example.demo.orm.entity.*;
+import com.example.demo.orm.mapper.*;
+import com.example.demo.orm.service.impl.ApplicantServiceImpl;
+import com.example.demo.service.RemoteApplicantService;
 import com.example.demo.service.RemoteCompanyService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +32,11 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
     HrMapper hrMapper;
     @Resource
     RecruitMapper recruitMapper;
+    @Resource
+    HireMapper hireMapper;
+    @Resource
+    PositionMapper positionMapper;
+
 
     @Override
     @EnablePage
@@ -75,10 +79,15 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         if (id == null) {
             throw new MyException("未传入必须的id");
         }
-        //TODO
-//        删除其下的相关表内容
+        //TODO 删除其下的相关表内容
         super.deleteRelationList(hrMapper, Hr::getCompanyId, id);
-
+        super.deleteRelationList(hireMapper, Hire::getCompanyId, id);
+        super.deleteRelationList(positionMapper, Position::getCompanyId, id);
+        LambdaQueryWrapper<Recruit> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Recruit::getCompanyId, id);
+        Recruit recruit = new Recruit();
+        recruit.setIsFinished(1);
+        recruitMapper.update(recruit, wrapper);
 
         int count = companyMapper.deleteById(id);
         return count == 1;

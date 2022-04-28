@@ -36,4 +36,14 @@ public class RemotePerformWeightServiceImpl extends BaseService implements Remot
         return id;
     }
 
+    @Override
+    public PerformWeightDTO getById(Long id) {
+        if (id == null) {
+            throw new MyException("未传入必须的id");
+        }
+
+        PerformWeight performWeight = performWeightMapper.selectById(id);
+
+        return ConverterUtils.convert(performWeight, PerformWeightDTO.class);
+    }
 }
