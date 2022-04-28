@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.common.vo.BaseModel;
-import com.example.demo.domain.dto.ApplicantDTO;
-import com.example.demo.domain.dto.CompanyDTO;
+import com.example.demo.domain.dto.*;
 import com.example.demo.domain.param.ApplicantSearchParam;
 import com.example.demo.domain.param.CompanySearchParam;
 import com.example.demo.service.RemoteApplicantService;
@@ -29,11 +28,46 @@ public class ApplicantController {
     }
 
     @ApiOperation("根据应聘人id获取指定应聘人信息")
-    @GetMapping("getById")
+    @GetMapping("/getById")
     public BaseModel<ApplicantDTO> getById(@RequestParam Long id) {
         ApplicantDTO data = applicantService.getById(id);
         return BaseModel.buildSuccess(data);
     }
 
+    @ApiOperation("保存应聘人")
+    @PostMapping("/save")
+    public BaseModel<Long> save(@RequestBody ApplicantDTO applicantDTO) {
+        Long id = applicantService.save(applicantDTO);
+        return BaseModel.buildSuccess(id);
+    }
+
+    @ApiOperation("签约")
+    @PostMapping("/hire")
+    public BaseModel<Boolean> hire(@RequestBody HireDTO hireDTO) {
+        Boolean data = applicantService.hire(hireDTO);
+        return BaseModel.buildSuccess(data);
+    }
+
+    @ApiOperation("解约")
+    @PostMapping("/termination")
+    public BaseModel<Boolean> termination(@RequestBody ApplicantDTO applicantDTO) {
+        Boolean data = applicantService.termination(applicantDTO);
+        return BaseModel.buildSuccess(data);
+    }
+
+    @ApiOperation("删除应聘人")
+    @GetMapping("/delete")
+    public BaseModel<Boolean> delete(@RequestParam Long id) {
+        Boolean data = applicantService.delete(id);
+        return data ? BaseModel.buildSuccess() : BaseModel.buildError();
+    }
+
+
+    @ApiOperation("获取应聘人履历")
+    @GetMapping("/getCvList")
+    public BaseModel<List<ApplicantCvDTO>> getCvList(@RequestParam Long id) {
+        List<ApplicantCvDTO> data = applicantService.getCvList(id);
+        return BaseModel.buildSuccess(data);
+    }
 
 }

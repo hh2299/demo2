@@ -18,12 +18,14 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value="Position对象", description="")
-public class Position extends BaseEntity {
+@ApiModel(value="CompanyPosition对象", description="")
+public class CompanyPosition extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private String name;
+    private Long companyId;
+
+    private Long positionId;
 
 
 }

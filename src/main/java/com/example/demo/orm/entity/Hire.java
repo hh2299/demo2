@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-27
+ * @since 2022-04-28
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -24,8 +24,6 @@ public class Hire extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     private Long companyId;
-
-    private Long positionId;
 
     private Long applicantId;
 

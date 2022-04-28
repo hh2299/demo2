@@ -30,4 +30,11 @@ public class PerformController {
         List<PerformanceDTO> data = performanceService.getList(param);
         return BaseModel.buildSuccess(data);
     }
+
+    @ApiOperation("表现列表")
+    @PostMapping("/eval")
+    public BaseModel<Long> eval(@RequestBody PerformanceDTO performance) {
+        Long data = performanceService.save(performance);
+        return BaseModel.buildSuccess(data);
+    }
 }

@@ -14,4 +14,10 @@ public interface RemotePerformanceService {
      */
     List<PerformanceDTO> getList(PerformanceSearchParam param);
 
+    /**
+     * 评价
+     * @param performance
+     * @return
+     */
+    Long save(PerformanceDTO performance);
 }

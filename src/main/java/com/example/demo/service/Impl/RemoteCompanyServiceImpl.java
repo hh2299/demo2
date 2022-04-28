@@ -82,12 +82,13 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         //TODO 删除其下的相关表内容
         super.deleteRelationList(hrMapper, Hr::getCompanyId, id);
         super.deleteRelationList(hireMapper, Hire::getCompanyId, id);
-        super.deleteRelationList(positionMapper, Position::getCompanyId, id);
+        // super.deleteRelationList(positionMapper, Position::getCompanyId, id);
         LambdaQueryWrapper<Recruit> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Recruit::getCompanyId, id);
         Recruit recruit = new Recruit();
         recruit.setIsFinished(1);
         recruitMapper.update(recruit, wrapper);
+
 
         int count = companyMapper.deleteById(id);
         return count == 1;

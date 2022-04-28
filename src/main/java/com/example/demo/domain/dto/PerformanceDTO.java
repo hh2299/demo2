@@ -11,6 +11,8 @@ public class PerformanceDTO extends BaseDTO {
 
     private static final long serialVersionUID = 3969766068121065835L;
 
+    private Long applicantId;
+
     private Long applicantCvId;
 
     private Date month;

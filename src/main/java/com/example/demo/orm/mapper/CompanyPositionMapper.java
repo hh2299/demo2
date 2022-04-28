@@ -1,6 +1,6 @@
 package com.example.demo.orm.mapper;
 
-import com.example.demo.orm.entity.Position;
+import com.example.demo.orm.entity.CompanyPosition;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author jobob
  * @since 2022-04-28
  */
-public interface PositionMapper extends BaseMapper<Position> {
+public interface CompanyPositionMapper extends BaseMapper<CompanyPosition> {
 
 }

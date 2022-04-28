@@ -52,7 +52,7 @@ public class RemoteRecruitServiceImpl extends BaseService implements RemoteRecru
         if (recruitDTO == null) {
             throw new MyException("请完善招聘信息");
         }
-        if (recruitDTO.getPerformWeight() == null) {
+        if (recruitDTO.getId() == null && recruitDTO.getPerformWeight() == null) {
             throw new MyException("请完善权重信息");
         }
 

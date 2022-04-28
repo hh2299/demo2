@@ -1,6 +1,6 @@
 package com.example.demo.orm.service;
 
-import com.example.demo.orm.entity.Position;
+import com.example.demo.orm.entity.CompanyPosition;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author jobob
  * @since 2022-04-28
  */
-public interface IPositionService extends IService<Position> {
+public interface ICompanyPositionService extends IService<CompanyPosition> {
 
 }

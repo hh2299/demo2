@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.dto.ApplicantCvDTO;
 import com.example.demo.domain.dto.ApplicantDTO;
+import com.example.demo.domain.dto.HireDTO;
 import com.example.demo.domain.param.ApplicantSearchParam;
 
 import java.util.List;
@@ -27,4 +29,33 @@ public interface RemoteApplicantService {
      * @return
      */
     Long save(ApplicantDTO applicantDTO);
+
+    /**
+     * 录用
+     *
+     * @param hireDTO
+     * @return
+     */
+    Boolean hire(HireDTO hireDTO);
+
+    /**
+     * 删除应聘人
+     * @param id
+     * @return
+     */
+    Boolean delete(Long id);
+
+    /**
+     * 获取应聘人履历
+     * @param id
+     * @return
+     */
+    List<ApplicantCvDTO> getCvList(Long id);
+
+    /**
+     * 解约
+     * @param applicantDTO
+     * @return
+     */
+    Boolean termination(ApplicantDTO applicantDTO);
 }

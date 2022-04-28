@@ -26,7 +26,7 @@ public class PositionController {
     @Resource
     RemotePositionService positionService;
 
-    @ApiOperation("Hr列表")
+    @ApiOperation("职业列表")
     @PostMapping("/list")
     public BaseModel<List<PositionDTO>> getPositionList(@RequestBody PositionSearchParam param) {
         List<PositionDTO> data = positionService.getPositionList(param);
