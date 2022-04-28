@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.RecruitMapping">
+
+    <select id="getList" resultType="com.example.demo.domain.dto.RecruitDTO">
+        select
+            r.*
+        from recruit r
+        where r.deleted = 0
+        <if test="param.positionName!=null and param.positionName!=''">
+            and r.position_name like concat('%',#{param.positionName},'%')
+        </if>
+        <if test="param.companyId!=null">
+            and r.company_id = #{param.companyId}
+        </if>
+        <if test="param.isPublished!=null">
+            and r.is_published = #{param.isPublished}
+        </if>
+
+        <if test="param.isFinished!=null">
+            and r.is_finished  = #{param.isFinished}
+        </if>
+
+        order by r.update_time desc
+
+    </select>
+</mapper>

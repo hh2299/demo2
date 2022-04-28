@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author jobob
- * @since 2022-04-27
+ * @since 2022-04-28
  */
 public interface IRecruitService extends IService<Recruit> {
 

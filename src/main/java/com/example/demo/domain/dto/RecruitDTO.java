@@ -39,6 +39,9 @@ public class RecruitDTO extends BaseDTO {
     @ApiModelProperty("是否招聘结束")
     private Integer isFinished;
 
+    @ApiModelProperty("是否发布")
+    private Integer isPublished;
+
     @ApiModelProperty("岗位详情")
     private String detail;
 

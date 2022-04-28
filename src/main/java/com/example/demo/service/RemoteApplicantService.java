@@ -54,8 +54,8 @@ public interface RemoteApplicantService {
 
     /**
      * 解约
-     * @param applicantDTO
+     * @param id
      * @return
      */
-    Boolean termination(ApplicantDTO applicantDTO);
+    Boolean termination(Long id);
 }

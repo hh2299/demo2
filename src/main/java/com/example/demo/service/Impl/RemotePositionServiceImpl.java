@@ -5,6 +5,7 @@ import com.example.demo.common.exception.MyException;
 import com.example.demo.common.mp.page.annotation.EnablePage;
 import com.example.demo.common.service.BaseService;
 import com.example.demo.common.util.ConverterUtils;
+import com.example.demo.common.util.StringUtil;
 import com.example.demo.domain.dto.PositionDTO;
 import com.example.demo.domain.param.PositionSearchParam;
 import com.example.demo.orm.entity.CompanyPosition;
@@ -35,14 +36,17 @@ public class RemotePositionServiceImpl extends BaseService implements RemotePosi
         }
 
         LambdaQueryWrapper<Position> wrapper = new LambdaQueryWrapper<>();
-        //TODO 暂时只有根据公司id筛选
 
         List<CompanyPosition> companyPositions = new ArrayList<>();
         if (param.getCompanyId() != null) {
             companyPositions = super.getRelationList(companyPositionMapper, CompanyPosition::getCompanyId, param.getCompanyId());
+            List<Long> positionIds = companyPositions.stream().map(e -> e.getPositionId()).collect(Collectors.toList());
+            wrapper.in(Position::getId, positionIds);
         }
-        List<Long> positionIds = companyPositions.stream().map(e -> e.getPositionId()).collect(Collectors.toList());
-        wrapper.in(Position::getId, positionIds);
+
+        if (StringUtil.isNotNull(param.getName())) {
+            wrapper.like(Position::getName, param.getName());
+        }
 
         List<Position> positions = positionMapper.selectList(wrapper);
         List<PositionDTO> positionDTOS = ConverterUtils.convertList(positions, PositionDTO.class);

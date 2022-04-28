@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class HireDTO extends BaseDTO {
 
-   private ApplicantDTO applicant;
-   private RecruitDTO recruit;
+   private Long applicantId;
+   private Long recruitId;
 }

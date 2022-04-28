@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-27
+ * @since 2022-04-28
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -43,6 +43,8 @@ public class Recruit extends BaseEntity {
 
     @ApiModelProperty(value = "表现权重id")
     private Long weightId;
+
+    private Integer isPublished;
 
     private Integer isFinished;
 

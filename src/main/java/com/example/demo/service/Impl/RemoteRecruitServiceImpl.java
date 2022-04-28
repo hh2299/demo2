@@ -6,6 +6,7 @@ import com.example.demo.common.mp.page.annotation.EnablePage;
 import com.example.demo.common.service.BaseService;
 import com.example.demo.common.util.ConverterUtils;
 import com.example.demo.common.util.StringUtil;
+import com.example.demo.dao.RecruitMapping;
 import com.example.demo.domain.dto.PerformWeightDTO;
 import com.example.demo.domain.dto.RecruitDTO;
 import com.example.demo.domain.param.RecruitSearchParam;
@@ -15,6 +16,7 @@ import com.example.demo.orm.mapper.RecruitMapper;
 import com.example.demo.service.RemotePerformWeightService;
 import com.example.demo.service.RemoteRecruitService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -28,6 +30,8 @@ public class RemoteRecruitServiceImpl extends BaseService implements RemoteRecru
     RemotePerformWeightService performWeightService;
     @Resource
     RecruitMapper recruitMapper;
+    @Resource
+    RecruitMapping recruitMapping;
 
     @Override
     @EnablePage
@@ -35,18 +39,13 @@ public class RemoteRecruitServiceImpl extends BaseService implements RemoteRecru
         if(param == null){
             throw new MyException("没有查询参数");
         }
-        LambdaQueryWrapper<Recruit> wrapper = new LambdaQueryWrapper<>();
-        if (param.getCompanyId() != null) {
-            wrapper.eq(Recruit::getCompanyId, param.getCompanyId());
-        }
-        if (StringUtil.isNotNull(param.getPositionName())) {
-            wrapper.like(Recruit::getPositionName, param.getPositionName());
-        }
-        List<Recruit>  recruits = recruitMapper.selectList(wrapper);
+
+        List<RecruitDTO> recruits = recruitMapping.getList(param);
         return ConverterUtils.convertList(recruits, RecruitDTO.class);
     }
 
     @Override
+    @Transactional
     public Long save(RecruitDTO recruitDTO) {
 
         if (recruitDTO == null) {

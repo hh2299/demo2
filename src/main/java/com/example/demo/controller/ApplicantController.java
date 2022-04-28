@@ -49,9 +49,9 @@ public class ApplicantController {
     }
 
     @ApiOperation("解约")
-    @PostMapping("/termination")
-    public BaseModel<Boolean> termination(@RequestBody ApplicantDTO applicantDTO) {
-        Boolean data = applicantService.termination(applicantDTO);
+    @GetMapping("/termination")
+    public BaseModel<Boolean> termination(@RequestParam Long id) {
+        Boolean data = applicantService.termination(id);
         return BaseModel.buildSuccess(data);
     }
 

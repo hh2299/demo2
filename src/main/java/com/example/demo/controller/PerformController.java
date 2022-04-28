@@ -31,7 +31,7 @@ public class PerformController {
         return BaseModel.buildSuccess(data);
     }
 
-    @ApiOperation("表现列表")
+    @ApiOperation("评价")
     @PostMapping("/eval")
     public BaseModel<Long> eval(@RequestBody PerformanceDTO performance) {
         Long data = performanceService.save(performance);

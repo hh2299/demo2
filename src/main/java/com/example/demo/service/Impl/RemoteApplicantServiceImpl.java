@@ -13,8 +13,10 @@ import com.example.demo.orm.mapper.*;
 import com.example.demo.orm.service.impl.CompanyServiceImpl;
 import com.example.demo.service.RemoteApplicantService;
 import com.example.demo.service.RemoteCompanyService;
+import com.example.demo.service.RemoteRecruitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
     HireMapper hireMapper;
     @Resource
     RemoteCompanyService companyService;
+    @Resource
+    RemoteRecruitService recruitService;
+
 
     @Override
     @EnablePage
@@ -58,7 +63,9 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
         if (applicant != null) {
             applicantCvs  = super.getRelationList(applicantCvMapper, ApplicantCv::getApplicantId, applicant.getId());
         }
-        applicantDTO.setApplicantCvList(ConverterUtils.convertList(applicantCvs, ApplicantCvDTO.class));
+        if (!CollectionUtils.isEmpty(applicantCvs)) {
+            applicantDTO.setApplicantCvList(ConverterUtils.convertList(applicantCvs, ApplicantCvDTO.class));
+        }
         return applicantDTO;
     }
 
@@ -85,12 +92,13 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
     @Override
     @Transactional
     public Boolean hire(HireDTO hireDTO) {
-        if (hireDTO == null || hireDTO.getApplicant() == null || hireDTO.getRecruit() == null) {
-            throw new MyException("请完善应聘人信息");
+        if (hireDTO == null || hireDTO.getApplicantId() == null || hireDTO.getRecruitId() == null) {
+            throw new MyException("请完善信息");
         }
 
         // 更新招聘信息
-        Recruit recruit = ConverterUtils.convert(hireDTO.getRecruit(), Recruit.class);
+        RecruitDTO recruitDTO = recruitService.getRecruitById(hireDTO.getRecruitId());
+        Recruit recruit = ConverterUtils.convert(recruitDTO, Recruit.class);
         int num = recruit.getNum();
         if (num == 0) {
             throw new MyException("该岗位已招满");
@@ -99,7 +107,10 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
         recruitMapper.updateById(recruit);
 
         // 更新应聘人信息
-        ApplicantDTO applicant = hireDTO.getApplicant();
+        ApplicantDTO applicant = getById(hireDTO.getApplicantId());
+        if (applicant == null) {
+            throw new MyException("应聘人信息有误");
+        }
         applicant.setIsHired(1);
         Long id = save(applicant);
         //添加履历
@@ -147,10 +158,11 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
     }
 
     @Override
-    public Boolean termination(ApplicantDTO applicantDTO) {
-        if (applicantDTO == null) {
+    public Boolean termination(Long id) {
+        if (id == null) {
             throw new MyException("请完善辞职人信息");
         }
+        ApplicantDTO applicantDTO = getById(id);
         //删除Hire信息
         super.deleteRelationList(hireMapper, Hire::getApplicantId, applicantDTO.getId());
         //更新履历信息
