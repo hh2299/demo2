@@ -54,16 +54,23 @@ public class RemoteRecruitServiceImpl extends BaseService implements RemoteRecru
         if (recruitDTO.getId() == null && recruitDTO.getPerformWeight() == null) {
             throw new MyException("请完善权重信息");
         }
-
-        Long weight_id = performWeightService.save(recruitDTO.getPerformWeight());
+        Long weight_id ;
+        Recruit recruit = ConverterUtils.convert(recruitDTO, Recruit.class);
 
         if (recruitDTO.getIsFinished() == 1) {
             //结束招聘
-            recruitDTO.setEndDate(new Date());
+            recruit.setEndDate(new Date());
+        }else {
+            if (recruitDTO.getPerformWeight() == null) {
+                //发布
+                recruit.setStartDate(new Date());
+            }else {
+                weight_id = performWeightService.save(recruitDTO.getPerformWeight());
+                recruit.setWeightId(weight_id);
+            }
         }
 
-        Recruit recruit = ConverterUtils.convert(recruitDTO, Recruit.class);
-        recruit.setWeightId(weight_id);
+
         Long id = recruit.getId();
         if (id == null) {
             recruitMapper.insert(recruit);

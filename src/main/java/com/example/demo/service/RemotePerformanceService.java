@@ -20,4 +20,6 @@ public interface RemotePerformanceService {
      * @return
      */
     Long save(PerformanceDTO performance);
+
+    PerformanceDTO getNewestPerform(Long id);
 }

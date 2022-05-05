@@ -36,6 +36,9 @@ public class RecruitDTO extends BaseDTO {
     @ApiModelProperty("要求")
     private String requirements;
 
+    @ApiModelProperty(value = "表现权重id")
+    private Long weightId;
+
     @ApiModelProperty("是否招聘结束")
     private Integer isFinished;
 

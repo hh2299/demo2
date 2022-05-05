@@ -1,5 +1,6 @@
 package com.example.demo.orm.entity;
 
+import java.util.Date;
 import com.example.demo.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-28
+ * @since 2022-05-03
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -28,6 +29,8 @@ public class Hire extends BaseEntity {
     private Long applicantId;
 
     private Long recruitId;
+
+    private Date hireDate;
 
 
 }

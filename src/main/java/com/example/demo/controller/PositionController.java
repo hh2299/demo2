@@ -1,12 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.common.vo.BaseModel;
-import com.example.demo.domain.dto.HrDTO;
 import com.example.demo.domain.dto.PositionDTO;
-import com.example.demo.domain.dto.RecruitDTO;
-import com.example.demo.domain.param.HrSearchParam;
 import com.example.demo.domain.param.PositionSearchParam;
-import com.example.demo.orm.entity.Position;
 import com.example.demo.service.RemotePositionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,5 +1,6 @@
 package com.example.demo.orm.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import com.example.demo.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -14,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-27
+ * @since 2022-05-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -26,11 +27,15 @@ public class Applicant extends BaseEntity {
 
     private String name;
 
+    private String photoPath;
+
     private String sex;
 
     private String nation;
 
     private Date birth;
+
+    private BigDecimal salary;
 
     private String origin;
 

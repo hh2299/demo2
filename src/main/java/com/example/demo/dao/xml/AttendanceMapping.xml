@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.AttendanceMapping">
+
+    <select id="selectCount" resultType="com.example.demo.orm.entity.Attendance">
+        select
+            a.*
+        from attendance a
+        where a.deleted = 0
+        <if test="applicantId!=null">
+            and a.applicant_id = #{applicantId}
+        </if>
+        <if test="start!=null and end!=null">
+            and (
+                    (
+                        (DATE_FORMAT(a.sign_in_time,'%Y-%m-%d') >= DATE_FORMAT(#{start},'%Y-%m-%d'))
+                            and
+                        (DATE_FORMAT(#{end},'%Y-%m-%d') >= DATE_FORMAT(a.sign_in_time,'%Y-%m-%d'))
+                    )
+                OR
+
+                    (
+                        (DATE_FORMAT(a.sign_out_time,'%Y-%m-%d') >= DATE_FORMAT(#{start},'%Y-%m-%d'))
+                        and
+                        (DATE_FORMAT(#{end},'%Y-%m-%d') >= DATE_FORMAT(a.sign_out_time,'%Y-%m-%d'))
+                    )
+            )
+        </if>
+<!--        <if test="isLate==1">-->
+<!--            and (DATE_FORMAT(a.sign_in_time,'HH') >= "09")-->
+<!--        </if>-->
+
+
+        order by a.update_time desc
+
+    </select>
+
+    <select id="selectLeaveList" resultType="com.example.demo.orm.entity.LeaveRecord">
+        select
+            l.*
+        from
+            leave_record l
+        where l.deleted = 0
+        <if test="param.applicantId!=null">
+            and l.applicant_id = #{param.applicantId}
+        </if>
+        <if test="param.startDate!=null">
+            and   (DATE_FORMAT(l.start_time,'%Y-%m-%d') >= DATE_FORMAT(#{param.startDate},'%Y-%m-%d'))
+        </if>
+        <if test="param.endDate!=null">
+            and   (DATE_FORMAT(#{param.endDate},'%Y-%m-%d') >= DATE_FORMAT(l.end_time,'%Y-%m-%d'))
+        </if>
+        <if test="param.isAgreed!=null">
+            and l.is_agreed = #{param.isAgreed}
+        </if>
+    </select>
+</mapper>

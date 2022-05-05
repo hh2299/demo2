@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.dto.ApplicantDTO;
 import com.example.demo.domain.dto.CompanyDTO;
+import com.example.demo.domain.vo.CompanyStatisticVo;
 import com.example.demo.domain.param.CompanySearchParam;
 
 import java.util.List;
@@ -18,4 +20,8 @@ public interface RemoteCompanyService {
 
 //    根据指定的id获取公司信息
     CompanyDTO getCompanyById(Long id);
+
+    List<ApplicantDTO> getEmployeeList(Long id);
+
+    CompanyStatisticVo statistic();
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author jobob
- * @since 2022-04-28
+ * @since 2022-05-03
  */
 @Service
 public class HireServiceImpl extends ServiceImpl<HireMapper, Hire> implements IHireService {

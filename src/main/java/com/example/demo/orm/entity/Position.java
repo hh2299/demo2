@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-28
+ * @since 2022-05-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -24,6 +24,8 @@ public class Position extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     private String name;
+
+    private Long weightId;
 
 
 }

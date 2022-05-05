@@ -31,4 +31,7 @@ public class BaseSearchParam implements Serializable {
     @ApiModelProperty("是否倒序")
     private Boolean isDesc = true;
 
+    @ApiModelProperty("公司id")
+    private Long companyId;
+
 }

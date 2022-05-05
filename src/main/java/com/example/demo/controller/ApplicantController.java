@@ -4,6 +4,7 @@ import com.example.demo.common.vo.BaseModel;
 import com.example.demo.domain.dto.*;
 import com.example.demo.domain.param.ApplicantSearchParam;
 import com.example.demo.domain.param.CompanySearchParam;
+import com.example.demo.domain.param.PositionSearchParam;
 import com.example.demo.service.RemoteApplicantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -70,4 +71,10 @@ public class ApplicantController {
         return BaseModel.buildSuccess(data);
     }
 
+    @ApiOperation("修改职业")
+    @PostMapping("/changePosition")
+    public BaseModel<Boolean> changePosition(@RequestBody ChangePositionDTO changePositionDTO) {
+       Boolean data = applicantService.changePosition(changePositionDTO);
+        return BaseModel.buildSuccess(data);
+    }
 }

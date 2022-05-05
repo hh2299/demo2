@@ -9,10 +9,7 @@ import com.example.demo.service.RemoteCompanyService;
 import com.example.demo.service.RemotePerformanceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,6 +32,14 @@ public class PerformController {
     @PostMapping("/eval")
     public BaseModel<Long> eval(@RequestBody PerformanceDTO performance) {
         Long data = performanceService.save(performance);
+        return BaseModel.buildSuccess(data);
+    }
+
+
+    @ApiOperation("根据applicantId获取当月评价")
+    @GetMapping("/getNewestPerform")
+    public BaseModel<PerformanceDTO> getNewestPerform(@RequestParam Long id) {
+        PerformanceDTO data = performanceService.getNewestPerform(id);
         return BaseModel.buildSuccess(data);
     }
 }

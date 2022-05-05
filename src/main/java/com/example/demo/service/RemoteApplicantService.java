@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.dto.ApplicantCvDTO;
 import com.example.demo.domain.dto.ApplicantDTO;
+import com.example.demo.domain.dto.ChangePositionDTO;
 import com.example.demo.domain.dto.HireDTO;
 import com.example.demo.domain.param.ApplicantSearchParam;
 
@@ -58,4 +59,11 @@ public interface RemoteApplicantService {
      * @return
      */
     Boolean termination(Long id);
+
+    /**
+     * 转职业
+     * @param changePositionDTO
+     * @return
+     */
+    Boolean changePosition(ChangePositionDTO changePositionDTO);
 }

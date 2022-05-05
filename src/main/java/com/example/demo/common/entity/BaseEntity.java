@@ -20,7 +20,7 @@ public abstract class BaseEntity extends Model<BaseEntity> implements Serializab
     private static final long serialVersionUID = 7906681093334871918L;
 
     @ApiModelProperty(value = "物理主键")
-    @TableId(type = IdType.ID_WORKER)
+    @TableId(type = IdType.ID_WORKER )
     protected Long id;
 
     @ApiModelProperty(value = "是否删除")

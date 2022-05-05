@@ -4,6 +4,7 @@ import com.example.demo.common.entity.BaseDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class ApplicantDTO extends BaseDTO {
 
     @ApiModelProperty("名字")
     private String name;
+
+    @ApiModelProperty("照片路径")
+    private String photoPath;
 
     @ApiModelProperty("性别")
     private String sex;
@@ -51,6 +55,9 @@ public class ApplicantDTO extends BaseDTO {
 
     @ApiModelProperty("是否被雇佣")
     private Integer isHired;
+
+    @ApiModelProperty("薪水")
+    private BigDecimal salary;
 
     @ApiModelProperty("在职履历")
     private List<ApplicantCvDTO> applicantCvList;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.TaskMapping">
+
+    <select id="getRecordListByTaskId" resultType="com.example.demo.domain.dto.TaskRecordDTO">
+        select
+        *
+        from
+        task_record
+        where
+            deleted  = 0
+        <if test="id!=null">
+            and task_id = #{id}
+        </if>
+    </select>
+
+
+    <resultMap id="taskDetail" type="com.example.demo.domain.dto.TaskDTO">
+        <result column="id" property="id"/>
+        <collection property="taskRecords" column="id" select="getRecordListByTaskId"/>
+    </resultMap>
+
+    <select id="getList" resultMap="taskDetail">
+        select
+            t.*,
+            a.photo_path applicantPhoto
+        from task t left  join applicant a on t.applicant_id = a.id and a.deleted = 0
+        where t.deleted = 0
+        <if test="param.companyId!=null">
+            and t.company_id = #{param.companyId}
+        </if>
+        order by t.update_time desc
+    </select>
+
+    <select id="getReportList" resultType="com.example.demo.domain.dto.ReportDTO">
+        select
+            r.*,
+            a.photo_path applicantPhoto
+        from report r left  join applicant a on  a.id = r.applicant_id and a.deleted = 0
+        where r.deleted = 0
+        <if test="param.companyId!=null">
+            and r.company_id = #{param.companyId}
+        </if>
+    </select>
+</mapper>
