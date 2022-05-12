@@ -20,13 +20,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/salary")
-@Api("薪水接口")
+@Api(tags="薪水接口")
 public class SalaryController {
 
     @Resource
     RemoteSalaryService salaryService;
 
-    @ApiOperation("任务列表")
+    @ApiOperation("薪资列表")
     @PostMapping("/list")
     public BaseModel<List<SalaryDTO>> getList(@RequestBody SalarySearchParam param) {
         List<SalaryDTO> data = salaryService.getList(param);

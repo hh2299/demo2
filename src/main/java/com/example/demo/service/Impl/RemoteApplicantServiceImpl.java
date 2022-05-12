@@ -19,6 +19,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +46,8 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
     RemoteSalaryService salaryService;
     @Resource
     RemotePerformWeightService performWeightService;
+    @Resource
+    RemoteInsuranceService insuranceService;
 
 
 
@@ -151,15 +154,37 @@ public class RemoteApplicantServiceImpl extends BaseService implements RemoteApp
         hireMapper.insert(hire);
 
         //添加一条薪资 (妈见打代码)
-        Salary salary = new Salary();
-        salary.setApplicantId(applicantId);
-        salary.setApplicant(applicant.getName());
-        salary.setPayableWage(recruit.getSalary());
-        salary.setTax(recruit.getSalary().divide(new BigDecimal(10)));
-        salary.setInsurancePay(new BigDecimal(200));
-        salary.setRealWage(salary.getPayableWage().subtract(salary.getInsurancePay()).subtract(salary.getTax()));
-        salary.setIsFinished(0);
-        salaryService.save(ConverterUtils.convert(salary, SalaryDTO.class));
+        Calendar now = Calendar.getInstance();
+        if (now.get(Calendar.DAY_OF_MONTH) < 15) {
+            now.set(Calendar.DAY_OF_MONTH,15);
+            Salary salary = new Salary();
+            salary.setApplicantId(applicantId);
+            salary.setApplicant(applicant.getName());
+            salary.setPayableWage(recruit.getSalary());
+            salary.setTax(recruit.getSalary().divide(new BigDecimal(10)));
+            salary.setInsurancePay(new BigDecimal(200));
+            salary.setRealWage(salary.getPayableWage().subtract(salary.getInsurancePay()).subtract(salary.getTax()));
+            salary.setIsFinished(0);
+            salary.setPayDate(now.getTime());
+            salaryService.save(ConverterUtils.convert(salary, SalaryDTO.class));
+        }
+        //添加当月的保险
+        now = Calendar.getInstance();
+        if (now.get(Calendar.DAY_OF_MONTH)<19){
+            Insurance insurance = new Insurance();
+            insurance.setApplicant(applicant.getName());
+            insurance.setApplicantId(applicantId);
+            insurance.setMedical(new BigDecimal(200));
+            insurance.setEndowment(new BigDecimal(200));
+            insurance.setFertility(new BigDecimal(200));
+            insurance.setHousingFund(new BigDecimal(200));
+            insurance.setInductrialInjury(new BigDecimal(200));
+            insurance.setUnemployment(new BigDecimal(200));
+            now.set(Calendar.DAY_OF_MONTH, 18);
+            insurance.setPayDate(now.getTime());
+            insuranceService.save(ConverterUtils.convert(insurance, InsuranceDTO.class));
+        }
+
         return hire.getId() != null;
     }
 

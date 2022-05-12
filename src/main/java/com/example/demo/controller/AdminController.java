@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/admin")
-@Api("管理员接口")
+@Api(tags="管理员接口")
 public class AdminController {
     @Resource
     RemoteAdminService adminService;

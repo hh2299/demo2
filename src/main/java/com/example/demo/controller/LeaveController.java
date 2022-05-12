@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/leave")
-@Api("请假接口")
+@Api(tags="请假接口")
 public class LeaveController {
 
     @Resource

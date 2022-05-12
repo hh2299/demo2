@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/attendance")
-@Api("考勤接口")
+@Api(tags="考勤接口")
 public class AttendanceController {
     @Resource
     RemoteAttendanceService attendanceService;

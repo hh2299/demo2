@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +84,11 @@ public class RemoteSalaryServiceImpl extends BaseService implements RemoteSalary
             salary.setIsFinished(0);
             salary.setApplicantId(a.getId());
             salary.setApplicant(a.getName());
-            salary.setPayDate(param.getSearchMonth());
+            Date payDate = param.getSearchMonth();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(payDate);
+            calendar.set(Calendar.DAY_OF_MONTH, 15);
+            salary.setPayDate(calendar.getTime());
             salaryMapper.insert(salary);
         }
         return Long.valueOf(applicants.size());

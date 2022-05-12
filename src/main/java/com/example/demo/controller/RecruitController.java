@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/recruit")
-@Api("招聘接口")
+@Api(tags="招聘接口")
 public class RecruitController {
 
     @Resource

@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/performance")
-@Api("在职表现接口")
+@Api(tags="在职表现接口")
 public class PerformController {
     @Resource
     RemotePerformanceService performanceService;

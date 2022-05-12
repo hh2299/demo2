@@ -1,6 +1,7 @@
 package com.example.demo.domain.dto;
 
 import com.example.demo.common.entity.BaseDTO;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -9,7 +10,7 @@ public class UserDTO extends BaseDTO {
 
     private static final long serialVersionUID = -5587238900359192826L;
     private String name;
-
+    @ApiModelProperty("照片路径")
     private String photoPath;
 
     private String sex;

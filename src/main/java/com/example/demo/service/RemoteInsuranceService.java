@@ -10,4 +10,6 @@ import java.util.List;
 public interface RemoteInsuranceService {
 
     List<InsuranceDTO> getList(@Param("param") InsuranceSearchParam param);
+
+    Long save(InsuranceDTO convert);
 }

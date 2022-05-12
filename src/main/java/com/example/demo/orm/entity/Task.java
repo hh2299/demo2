@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-04-29
+ * @since 2022-05-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -37,6 +37,9 @@ public class Task extends BaseEntity {
     private String summary;
 
     private Date startDate;
+
+    @ApiModelProperty(value = "要求完成时间")
+    private Date endDate;
 
     private Integer isPublished;
 

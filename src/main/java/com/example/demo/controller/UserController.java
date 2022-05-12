@@ -13,14 +13,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@Api("Hr接口")
+@Api(tags="用户接口")
 public class UserController {
 
     @Resource
     RemoteUserService userService;
 
 
-    @ApiOperation("Hr列表")
+    @ApiOperation("user列表")
     @PostMapping("/list")
     public BaseModel<List<UserDTO>> getHrList(@RequestBody UserSearchParam param) {
 
@@ -29,21 +29,21 @@ public class UserController {
     }
 
 
-    @ApiOperation("保存Hr")
+    @ApiOperation("保存user")
     @PostMapping("/save")
     public BaseModel<Long> saveUser(@RequestBody UserDTO company) {
         Long id = userService.save(company);
         return BaseModel.buildSuccess(id);
     }
 
-    @ApiOperation("删除Hr")
+    @ApiOperation("删除User")
     @GetMapping("/delete")
     public BaseModel<UserDTO> delete(@RequestParam Long id) {
         Boolean data = userService.delete(id);
         return data ? BaseModel.buildSuccess() : BaseModel.buildError();
     }
 
-    @ApiOperation("根据Hr的id获取指定Hr信息")
+    @ApiOperation("根据User的id获取指定Hr信息")
     @GetMapping("getById")
     public BaseModel<UserDTO> getById(@RequestParam Long id) {
         UserDTO data = userService.getUserById(id);

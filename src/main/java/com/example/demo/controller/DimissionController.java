@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dimission")
-@Api("离职接口")
+@Api(tags="离职接口")
 public class DimissionController {
 
     @Resource

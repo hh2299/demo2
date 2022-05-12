@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/position")
-@Api("岗位接口")
+@Api(tags="岗位接口")
 public class PositionController {
 
     @Resource

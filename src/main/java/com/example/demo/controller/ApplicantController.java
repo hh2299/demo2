@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/applicant")
-@Api("应聘人接口")
+@Api(tags="应聘人接口")
 public class ApplicantController {
 
     @Resource

@@ -19,13 +19,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bonus")
-@Api("奖金接口")
+@Api(tags="奖金接口")
 public class BonusController {
 
     @Resource
     RemoteBonusService bonusService;
 
-    @ApiOperation("任务列表")
+    @ApiOperation("奖金列表")
     @PostMapping("/list")
     public BaseModel<List<BonusDTO>> getList(@RequestBody BonusSearchParam param) {
         List<BonusDTO> data = bonusService.getList(param);

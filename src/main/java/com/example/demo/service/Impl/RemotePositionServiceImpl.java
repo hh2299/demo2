@@ -14,6 +14,7 @@ import com.example.demo.orm.mapper.CompanyPositionMapper;
 import com.example.demo.orm.mapper.PositionMapper;
 import com.example.demo.service.RemotePositionService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -41,7 +42,9 @@ public class RemotePositionServiceImpl extends BaseService implements RemotePosi
         if (param.getCompanyId() != null) {
             companyPositions = super.getRelationList(companyPositionMapper, CompanyPosition::getCompanyId, param.getCompanyId());
             List<Long> positionIds = companyPositions.stream().map(e -> e.getPositionId()).collect(Collectors.toList());
-            wrapper.in(Position::getId, positionIds);
+            if (!CollectionUtils.isEmpty(positionIds)){
+                wrapper.in(Position::getId, positionIds);
+            }
         }
 
         if (StringUtil.isNotNull(param.getName())) {
@@ -55,19 +58,20 @@ public class RemotePositionServiceImpl extends BaseService implements RemotePosi
     }
     @Override
     public Long save(PositionDTO positionDTO) {
-        if (positionDTO == null || positionDTO.getCompanyId() == null) {
+        if (positionDTO == null) {
             throw new MyException("请完善职位信息");
         }
         Position position = ConverterUtils.convert(positionDTO, Position.class);
 
         Long id = position.getId();
-        CompanyPosition companyPosition = new CompanyPosition();
-        companyPosition.setCompanyId(positionDTO.getCompanyId());
+
+//        CompanyPosition companyPosition = new CompanyPosition();
+//        companyPosition.setCompanyId(positionDTO.getCompanyId());
         if (id == null) {
             positionMapper.insert(position);
             id = position.getId();
-            companyPosition.setPositionId(id);
-            companyPositionMapper.insert(companyPosition);
+//            companyPosition.setPositionId(id);
+//            companyPositionMapper.insert(companyPosition);
         } else {
             positionMapper.updateById(position);
         }

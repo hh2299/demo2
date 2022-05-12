@@ -11,15 +11,15 @@ import java.util.Date;
 public class CompanyDTO extends BaseDTO {
 
     private String name;
-
+    @ApiModelProperty("地址")
     private String address;
-
+    @ApiModelProperty("法人")
     private String legalPerson;
-
+    @ApiModelProperty("法人身份证")
     private String legalIcid;
-
+    @ApiModelProperty("法人电话号码")
     private String legalPhone;
-
+    @ApiModelProperty("省份")
     private String province;
 
     private String city;
@@ -27,7 +27,7 @@ public class CompanyDTO extends BaseDTO {
     private String area;
 
     private String content;
-
+    @ApiModelProperty("行业类别")
     private String industryCategory;
 
     private Integer isAgreed;
@@ -35,4 +35,6 @@ public class CompanyDTO extends BaseDTO {
     private UserDTO user;
 
     private Date joinDate;
+
+    private Long userId;
 }

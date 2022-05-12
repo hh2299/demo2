@@ -12,6 +12,5 @@ public class LeaveSearchParam extends BaseSearchParam {
     private Long applicantId;
     private Date startDate;
     private Date endDate;
-
     private Integer isAgreed;
 }

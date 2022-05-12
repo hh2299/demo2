@@ -123,6 +123,7 @@ public class RemoteLeaveServiceImpl extends BaseService implements RemoteLeaveSe
         wrapper.eq(LeaveRecord::getApplicantId, a.getId());
         wrapper.ge(LeaveRecord::getStartTime, startDate);
         wrapper.le(LeaveRecord::getEndTime, endDate);
+        wrapper.eq(LeaveRecord::getIsAgreed, 1);
         List<LeaveRecord> leaveList = leaveRecordMapper.selectList(wrapper);
         leaveStaticDTO.setLeaveCount(leaveList.size());
         leaveStaticDTO.setLeaveRate(leaveList.size() * 100 / total);

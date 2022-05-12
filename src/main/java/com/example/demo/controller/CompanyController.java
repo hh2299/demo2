@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/company")
-@Api("公司接口")
+@Api(tags="公司接口")
 public class CompanyController {
 
     @Resource

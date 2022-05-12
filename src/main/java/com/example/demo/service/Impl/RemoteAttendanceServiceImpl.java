@@ -127,7 +127,7 @@ public class RemoteAttendanceServiceImpl extends BaseService implements RemoteAt
 
         startDate = getThisDaysEnd(startDate);
         endDate = getThisDaysEnd(endDate);
-        int total = countWorkDay(startDate, endDate);
+        int total = countWorkDay(startDate, endDate) - 1;
         if (total == 0) {
             return null;
         }

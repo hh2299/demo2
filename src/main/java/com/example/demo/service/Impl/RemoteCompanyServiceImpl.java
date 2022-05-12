@@ -77,6 +77,14 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         } else {
             companyMapper.insert(company);
             id = company.getId();
+            if (companyDTO.getUserId() != null) {
+                User user = new User();
+                user.setCompanyId(id);
+                user.setCompanyName(company.getName());
+                LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                userLambdaQueryWrapper.eq(User::getId, companyDTO.getUserId());
+                userMapper.update(user, userLambdaQueryWrapper);
+            }
         }
         return id;
     }
@@ -106,6 +114,9 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         if (id == null) {
             throw new MyException("未传入必须的id");
         }
+        if (id == 0L) {
+            return null;
+        }
         Company company = companyMapper.selectById(id);
         if (company == null) {
             throw new MyException("不存在该公司");
@@ -126,6 +137,9 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
 
         List<Long> applicantIds = hires.stream().map(e -> e.getApplicantId()).collect(Collectors.toList());
 
+        if (applicantIds.size() == 0) {
+            return new ArrayList<ApplicantDTO>();
+        }
         List<Applicant> applicants = applicantMapper.selectBatchIds(applicantIds);
 
         return ConverterUtils.convertList(applicants, ApplicantDTO.class);
@@ -176,11 +190,23 @@ public class RemoteCompanyServiceImpl extends BaseService implements RemoteCompa
         List<CompanyCityStatisticVo> companyCityStatisticDTOS = new ArrayList<>();
         for (Map.Entry<String, List<Company>> entry : map2.entrySet()) {
             String mapKey = entry.getKey();
-            List<Company> mapValue = entry.getValue();
-            CompanyCityStatisticVo companyCityStatistic = new CompanyCityStatisticVo();
-            companyCityStatistic.setCity(mapKey);
-            companyCityStatistic.setNum(mapValue.size());
-            companyCityStatisticDTOS.add(companyCityStatistic);
+            if ("市辖区".equals(mapKey)) {
+                Map<String, List<Company>> map3 = entry.getValue().stream().collect(Collectors.groupingBy(Company::getProvince));
+                for (Map.Entry<String, List<Company>> entry3 : map3.entrySet()) {
+                    String mapKey3 = entry3.getKey();
+                    List<Company> mapValue = entry3.getValue();
+                    CompanyCityStatisticVo companyCityStatistic = new CompanyCityStatisticVo();
+                    companyCityStatistic.setCity(mapKey3);
+                    companyCityStatistic.setNum(mapValue.size());
+                    companyCityStatisticDTOS.add(companyCityStatistic);
+                }
+            }else {
+                List<Company> mapValue = entry.getValue();
+                CompanyCityStatisticVo companyCityStatistic = new CompanyCityStatisticVo();
+                companyCityStatistic.setCity(mapKey);
+                companyCityStatistic.setNum(mapValue.size());
+                companyCityStatisticDTOS.add(companyCityStatistic);
+            }
         }
 
         companyStatistic.setCompanyCityStatistic(companyCityStatisticDTOS);

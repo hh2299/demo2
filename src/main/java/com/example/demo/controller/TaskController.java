@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/task")
-@Api("任务接口")
+@Api(tags="任务接口")
 public class TaskController {
 
     @Resource

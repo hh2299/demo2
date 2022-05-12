@@ -41,4 +41,7 @@ public class TaskDTO extends BaseDTO {
     private Integer isPublished;
 
     private List<TaskRecordDTO> taskRecords;
+
+    @ApiModelProperty(value = "要求完成时间")
+    private Date endDate;
 }

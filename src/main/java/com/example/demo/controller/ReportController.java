@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/report")
-@Api("报告接口")
+@Api(tags="报告接口")
 public class ReportController {
 
     @Resource
@@ -35,7 +35,7 @@ public class ReportController {
         return BaseModel.buildSuccess(data);
     }
 
-    @ApiOperation("删除任务")
+    @ApiOperation("删除报告")
     @GetMapping("/delete")
     public BaseModel<Boolean> delete(@RequestParam Long id) {
         Boolean data = reportService.delete(id);

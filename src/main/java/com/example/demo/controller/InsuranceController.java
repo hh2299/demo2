@@ -19,13 +19,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/insurance")
-@Api("保险接口")
+@Api(tags="保险接口")
 public class InsuranceController {
 
     @Resource
     RemoteInsuranceService insuranceService;
 
-    @ApiOperation("任务列表")
+    @ApiOperation("保险列表")
     @PostMapping("/list")
     public BaseModel<List<InsuranceDTO>> getList(@RequestBody InsuranceSearchParam param) {
         List<InsuranceDTO> data = insuranceService.getList(param);
